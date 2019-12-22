@@ -14,11 +14,21 @@
 
 `./akiyama yeah_yeah_code`
 
-## 内蔵のGrass処理系
+## sample
+`sample/grass_helloworld` にGrassで書かれたhello worldがあるのでそれを変換し、実行してみます。
+
+```
+[hoge]$ ./akiyama --encode sample/grass_helloworld > akym_hw # => ウォウとっしーウォウイェイ・・・
+[hoge]$ ./akiyama akym_hw 
+Hello, world![hoge]$ 
+```
+
+
+## 内蔵のGrass処理系について
 
 Grass開発者のUENO Katsuhiro氏が公開している[ruby版の処理系](http://www.blue.sky.or.jp/grass/doc_ja.html)を動作するように修正して内蔵しています。
 
-### 著作権について
+### 著作権
 内蔵したGrassの処理系の著作権はすべてUENO Katsuhiro氏に帰属しています。
 また、免責事項は以下になります。
 
