@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require "./grass"
+
+
+
+class String 
+  def to_akiyama 
+    AkiyamaDict::Decode_list.inject(self.gsub(/[ 　]/,"")){ |str,code| str.gsub(*code) }
+  end
+  def to_grass 
+    AkiyamaDict::Encode_list.inject(self){ |str,code| str.gsub(*code) }
+  end
+end
+
+module AkiyamaDict
+  Encode_list ={
+    "イェイ" => "W",
+    "ウォウ" => "w",
+    "とっしー" => "v"
+  }
+  Decode_list = Encode_list.map(&:reverse).to_h
+end
+
+class Akiyama 
+  include AkiyamaDict
+  def initialize
+    @grass_interpreter = Grass.new
+  end
+  def encode_grass_to_akiyama (str)
+    str.to_akiyama
+  end
+  def exec src
+    @grass_interpreter.run src.to_grass
+  end
+end
+
+
+if $0 == __FILE__ then
+  opts = ARGV.getopts('e','encode')
+  if opts["e"] or opts["encode"] then
+    print $<.read.to_akiyama.gsub(/[\r\n]/,"")
+  else
+    Akiyama.new.exec $<.read
+  end
+end
+
+
+
+
